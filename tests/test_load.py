@@ -1,7 +1,7 @@
 """Integration test against a real PostgreSQL (skipped unless TEST_DATABASE_URL is set).
 
 CI starts a postgres service container; locally:
-    TEST_DATABASE_URL=postgresql://fuel:<pw>@localhost:5432/fuel_test pytest
+    TEST_DATABASE_URL=postgresql://fuel:<pw>@127.0.0.1:5432/fuel_test pytest
 """
 
 import json

@@ -112,14 +112,12 @@ def load_snapshot(
         )
         # The day must reflect the latest snapshot exactly: remove prices that vanished
         # between two runs of the same day (e.g. a station stopped selling a fuel).
+        # now() is fixed for the whole transaction, so every row written above has
+        # loaded_at = now(); anything older for this day was not in the snapshot.
+        # (A NOT EXISTS anti-join against the un-analysed temp table took ~80 s per day.)
         cur.execute(
-            """
-            DELETE FROM fact_fuel_price p
-            WHERE p.date_key = %(k)s AND NOT EXISTS (
-                SELECT 1 FROM stg_price s JOIN dim_fuel f USING (fuel_code)
-                WHERE s.station_id = p.station_id AND f.fuel_id = p.fuel_id)
-            """,
-            {"k": date_key},
+            "DELETE FROM fact_fuel_price WHERE date_key = %s AND loaded_at < now()",
+            (date_key,),
         )
         removed = cur.rowcount
 

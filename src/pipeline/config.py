@@ -34,7 +34,7 @@ def load_settings() -> Settings:
     load_dotenv()  # does not override variables already set in the environment
     env = os.environ.get
     return Settings(
-        pg_host=env("POSTGRES_HOST", "localhost"),
+        pg_host=env("POSTGRES_HOST", "127.0.0.1"),
         pg_port=int(env("POSTGRES_PORT", "5432")),
         pg_db=env("POSTGRES_DB", "fuel"),
         pg_user=env("POSTGRES_USER", "fuel"),
