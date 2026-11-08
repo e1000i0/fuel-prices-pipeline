@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets and local config
+.env
+
+# Data lake (raw snapshots are reproducible from the API)
+data/
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.ipynb_checkpoints/
